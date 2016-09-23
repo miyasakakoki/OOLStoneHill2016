@@ -1,0 +1,10 @@
+[Unit]
+Description = My Tempreture & Humidity Sensor daemon
+
+[Service]
+ExecStart=/home/pi/systemd/MySensor.py
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
