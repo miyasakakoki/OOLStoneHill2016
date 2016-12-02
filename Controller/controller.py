@@ -164,7 +164,7 @@ class Sample(app_manager.RyuApp):
         for datapath in self.datapathes:
             parser = datapath.ofproto_parser
             proto = datapath.ofproto
-            match = parser.OFPMatch(dl_src=js.get('mac1'))
+            match = parser.OFPMatch(dl_src=js.get('mac1'), dl_dst=js.get('mac2'))
             self.del_flow(datapath, 10, match)
 
     def del_flow(self, datapath, priority, match):
