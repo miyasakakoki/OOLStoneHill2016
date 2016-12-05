@@ -127,7 +127,7 @@ class Sample(app_manager.RyuApp):
         #     )
 
     def set_flow(self, js):
-        """ it is called in sr."""
+        """ it is called in add_flow_receiver."""
         self.log.info(self.set_flow.__doc__)
         proto = None
         op = None
@@ -145,7 +145,7 @@ class Sample(app_manager.RyuApp):
                 parser.OFPActionSetTpDst(4000),
                 parser.OFPActionOutput(proto.OFPP_IN_PORT)#, ofproto.OFP_NO_BUFFER)#proto.OFPP_NORMAL,3 ,proto.OFP_NO_BUFFER)
             ]
-        self.add_flow(datapath, 10, match, actions)
+            self.add_flow(datapath, 10, match, actions)
 
     def add_flow(self, datapath, priority, match, actions):
         proto = datapath.ofproto
@@ -153,7 +153,27 @@ class Sample(app_manager.RyuApp):
         command = proto.OFPFC_ADD
         cookie = 0
         # inst = []#[parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS,actions)]
-        mod = parser.OFPFlowMod(datapath=datapath, priority=priority, match=match, actions=actions, command=command, cookie=cookie)#instAructions=inst)
+        mod = parser.OFPFlowMod(datapath=datapath, priority=priority, match=match, actions=actions, command=command, cookie=cookie)
+        datapath.send_msg(mod)
+
+    def set_del_flow(self, js):
+        """ it is called by del_flow_receiver. """
+        self.log.info(self.set_flow.__doc__)
+        proto = None
+        op = None
+        for datapath in self.datapathes:
+            parser = datapath.ofproto_parser
+            proto = datapath.ofproto
+            match = parser.OFPMatch(dl_src=js.get('mac1'), dl_dst=js.get('mac2'))
+            self.del_flow(datapath, 10, match)
+
+    def del_flow(self, datapath, priority, match):
+        """ it is called by set_del_flow. """
+        proto = datapath.ofproto
+        parser = datapath.ofproto_parser
+        command = proto.OFPFC_DELETE
+        cookie = 0
+        mod = parser.OFPFlowMod(datapath=datapath, priority=priority, match=match, command=command, cookie=cookie)
         datapath.send_msg(mod)
 
 class Rest(ControllerBase):
@@ -161,10 +181,15 @@ class Rest(ControllerBase):
         super(Rest, self).__init__(req, link, data, **config)
         self.sample = data[sample]
 
-    @route('sr', '/api/sr', methods=['POST'])
-    def sr(self, req, **kwargs):
+    @route('addflow', '/api/addflow', methods=['POST'])
+    def add_flow_receiver(self, req, **kwargs):
         js = literal_eval(req.body)
         self.sample.set_flow(js)
+        
+    @route('delflow', '/api/delflow', methods=['POST'])
+    def del_flow_receiver(self, req, **kwargs):
+        js = literal_eval(req.body)
+        self.sample.set_del_flow(js)        
 
 if __name__ == '__main__':
     import sys
