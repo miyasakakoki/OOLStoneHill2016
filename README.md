@@ -17,7 +17,7 @@
 * shiryou.pdf  
   上記ファイルのPDFです。  
   このファイルでわからないことは、issueとして上げてくれると嬉しいです。
-* ic2016-poster-paper5.pdf
+* ic2016-poster-paper5.pdf  
   InternetConference2016にて掲示させていただいたポスターです。  
   こちらを見てもだいたい解ると思います。  
 
