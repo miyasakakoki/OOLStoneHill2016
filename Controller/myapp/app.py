@@ -5,9 +5,10 @@ import os
 app = Flask(__name__)
 
 device = [
-    { "MAC":"b8:27:eb:01:67:24" }, #dev1
-    { "MAC":"b8:27:eb:35:02:c9" }, #dev2
-    { "MAC":"b8:27:eb:c5:ba:92" } #dev3
+#    { "MAC":"b8:27:eb:33:95:f9" }, #dev1 sw
+    { "MAC":"5c:cf:7f:89:f3:b0" },
+    { "MAC":"18:fe:34:d2:83:40" }, #dev2 led
+    { "MAC":"18:fe:34:d2:7b:29" } #dev3 buzzer
 ]
 
 @app.route("/")

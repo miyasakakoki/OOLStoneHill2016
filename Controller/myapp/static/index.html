@@ -21,34 +21,14 @@
 				<table>
 					<tr><td>センサ名</td><td>ロジック名</td></td>
 					<tr>
-						<td>温湿度センサ</td>
+						<td>スイッチ</td>
 						<td>
 							<input type="hidden" name="devid" value="1" />
 							<select name="conect">
 								<option value="0">--接続先なし--</option>
-								<option value="2">不快度計算</option>
-								<option value="0">平均温湿度の計算</option>
+								<option value="2">LED</option>
+								<option value="3">Buzzer</option>
 								<option value="0">ログ取り</option>
-							</select>
-						</td>
-					</tr>
-				</table>
-				<input type="submit" value="設定！" />
-			</form>
-		</div>
-		<div>
-			<h2>ロジックの送り先設定</h2>
-			<form action="api/con" method="POST">
-				<table>
-					<tr><td>ロジック名</td><td>送信先名</td></tr>
-					<tr>
-						<td>不快度計算</td>
-						<td>
-							<input type="hidden" name="devid" value="2" />
-							<select name="conect">
-								<option value="0">--接続先なし--</option>
-								<option value="0">平均温湿度の計算</option>
-								<option value="3">LED Buzzer</option>
 							</select>
 						</td>
 					</tr>
@@ -60,9 +40,9 @@
 			<h2>デバイス一覧</h2>
 			<table>
 				<tr><td>デバイス名</td><td>種別</td></tr>
-				<tr><td>温湿度センサ</td><td>センサ</td></tr>
-				<tr><td>不快度計算</td><td>ロジック</td></tr>
-				<tr><td>LED-Buzzer</td><td>アクチュエータ</td></tr>
+				<tr><td>スイッチ</td><td>センサ</td></tr>
+				<tr><td>LED</td><td>アクチュエータ</td></tr>
+				<tr><td>Buzzer</td><td>アクチュエータ</td></tr>
 			</table>
 	</body>
 </html>
